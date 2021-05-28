@@ -4,6 +4,9 @@ class SearchPageCest
 {
     
 
+    /*
+    Проверка количества найденных товаров 
+    */
     // tests
     public function SerchPage(FunctionalTester $I)
     {
