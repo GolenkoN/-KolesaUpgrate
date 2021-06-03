@@ -10,7 +10,7 @@ class AuthorizationCest
     /**
      * Проверка неудачной авторизации пользователя
      */
-    public function AuthorizationCest(AcceptanceTester $I)
+    public function Authorization(AcceptanceTester $I)
     {
         $loginPage = new LoginPage($I);
         $I->amOnPage(LoginPage::$URL);
