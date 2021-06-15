@@ -1,0 +1,16 @@
+name: Workflow
+on: [push]
+
+jobs: 
+  buildAndTest: 
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: composer intall
+      - name: Install Faker
+        run: composer require fzaninotto/faker
+      - name: Run chromedriver
+        run: nohup $CHROMEWEBDRIVER/chromedriver --url-base=/wd/hub /dev/null 2>&1 &
+      - name: Run tests
+        run: php vendor/bin/codecept run --steps -vvv
