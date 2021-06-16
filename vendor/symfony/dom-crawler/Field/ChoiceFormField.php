@@ -268,8 +268,6 @@ class ChoiceFormField extends FormField
     /**
      * Checks whether given value is in the existing options.
      *
-     * @internal since Symfony 5.3
-     *
      * @return bool
      */
     public function containsOption(string $optionValue, array $options)
@@ -290,8 +288,6 @@ class ChoiceFormField extends FormField
     /**
      * Returns list of available field options.
      *
-     * @internal since Symfony 5.3
-     *
      * @return array
      */
     public function availableOptionValues()
@@ -307,8 +303,6 @@ class ChoiceFormField extends FormField
 
     /**
      * Disables the internal validation of the field.
-     *
-     * @internal since Symfony 5.3
      *
      * @return self
      */

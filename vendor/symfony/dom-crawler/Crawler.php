@@ -34,11 +34,6 @@ class Crawler implements \Countable, \IteratorAggregate
     private $namespaces = [];
 
     /**
-     * @var \ArrayObject A map of cached namespaces
-     */
-    private $cachedNamespaces;
-
-    /**
      * @var string The base href value
      */
     private $baseHref;
@@ -73,7 +68,6 @@ class Crawler implements \Countable, \IteratorAggregate
         $this->uri = $uri;
         $this->baseHref = $baseHref ?: $uri;
         $this->html5Parser = class_exists(HTML5::class) ? new HTML5(['disable_html_ns' => true]) : null;
-        $this->cachedNamespaces = new \ArrayObject();
 
         $this->add($node);
     }
@@ -105,7 +99,6 @@ class Crawler implements \Countable, \IteratorAggregate
     {
         $this->nodes = [];
         $this->document = null;
-        $this->cachedNamespaces = new \ArrayObject();
     }
 
     /**
@@ -494,27 +487,13 @@ class Crawler implements \Countable, \IteratorAggregate
     }
 
     /**
-     * Returns the parent nodes of the current selection.
+     * Returns the parents nodes of the current selection.
      *
      * @return static
      *
      * @throws \InvalidArgumentException When current node is empty
      */
     public function parents()
-    {
-        trigger_deprecation('symfony/dom-crawler', '5.3', 'The %s() method is deprecated, use ancestors() instead.', __METHOD__);
-
-        return $this->ancestors();
-    }
-
-    /**
-     * Returns the ancestors of the current selection.
-     *
-     * @return static
-     *
-     * @throws \InvalidArgumentException When the current node is empty
-     */
-    public function ancestors()
     {
         if (!$this->nodes) {
             throw new \InvalidArgumentException('The current node list is empty.');
@@ -988,14 +967,12 @@ class Crawler implements \Countable, \IteratorAggregate
      */
     private function filterRelativeXPath(string $xpath): object
     {
-        $crawler = $this->createSubCrawler(null);
-        if (null === $this->document) {
-            return $crawler;
-        }
+        $prefixes = $this->findNamespacePrefixes($xpath);
 
-        $domxpath = $this->createDOMXPath($this->document, $this->findNamespacePrefixes($xpath));
+        $crawler = $this->createSubCrawler(null);
 
         foreach ($this->nodes as $node) {
+            $domxpath = $this->createDOMXPath($node->ownerDocument, $prefixes);
             $crawler->add($domxpath->query($xpath, $node));
         }
 
@@ -1208,18 +1185,14 @@ class Crawler implements \Countable, \IteratorAggregate
      */
     private function discoverNamespace(\DOMXPath $domxpath, string $prefix): ?string
     {
-        if (\array_key_exists($prefix, $this->namespaces)) {
+        if (isset($this->namespaces[$prefix])) {
             return $this->namespaces[$prefix];
-        }
-
-        if ($this->cachedNamespaces->offsetExists($prefix)) {
-            return $this->cachedNamespaces[$prefix];
         }
 
         // ask for one namespace, otherwise we'd get a collection with an item for each node
         $namespaces = $domxpath->query(sprintf('(//namespace::*[name()="%s"])[last()]', $this->defaultNamespacePrefix === $prefix ? '' : $prefix));
 
-        return $this->cachedNamespaces[$prefix] = ($node = $namespaces->item(0)) ? $node->nodeValue : null;
+        return ($node = $namespaces->item(0)) ? $node->nodeValue : null;
     }
 
     private function findNamespacePrefixes(string $xpath): array
@@ -1244,7 +1217,6 @@ class Crawler implements \Countable, \IteratorAggregate
         $crawler->isHtml = $this->isHtml;
         $crawler->document = $this->document;
         $crawler->namespaces = $this->namespaces;
-        $crawler->cachedNamespaces = $this->cachedNamespaces;
         $crawler->html5Parser = $this->html5Parser;
 
         return $crawler;
