@@ -7,15 +7,19 @@
 actor: AcceptanceTester
 modules:
     enabled:
+<<<<<<< HEAD
         - MongoDb:
             dsn: 'mongodb://46.101.235.30/upgradeApp'
             populate: false
             cleanup: false
+=======
+>>>>>>> 4a94011bc424b3ff7825ba00a5077911d5cf9227
         - WebDriver:
             url: http://automationpractice.com/
             host: localhost
             port: 9515
             browser: chrome
+<<<<<<< HEAD
             window_size: maximize
             request_timeout: 120
             connection_timeout: 120
@@ -25,5 +29,9 @@ modules:
                     args: [ "--headless", "--disable-gpu" ]
         - \Helper\Acceptance
         - \Helper\BaseHelper
+=======
+            window_size: 1440x1000
+        - \Helper\Acceptance
+>>>>>>> 4a94011bc424b3ff7825ba00a5077911d5cf9227
         - Asserts
 step_decorators: ~        

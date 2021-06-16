@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Tokenizer
 
 A small library for converting tokenized PHP source code into XML.
@@ -19,6 +20,21 @@ If you only need this library during development, for instance to run your proje
 ## Usage examples
 
 ```php
+=======
+Tokenizer
+A small library for converting tokenized PHP source code into XML.
+
+Scrutinizer Code Quality Code Coverage Build Status
+
+Installation
+You can add this library as a local, per-project dependency to your project using Composer:
+
+composer require theseer/tokenizer
+If you only need this library during development, for instance to run your project's test suite, then you should add it as a development-time dependency:
+
+composer require --dev theseer/tokenizer
+Usage examples
+>>>>>>> 4a94011bc424b3ff7825ba00a5077911d5cf9227
 $tokenizer = new TheSeer\Tokenizer\Tokenizer();
 $tokens = $tokenizer->parse(file_get_contents(__DIR__ . '/src/XMLSerializer.php'));
 
@@ -26,11 +42,16 @@ $serializer = new TheSeer\Tokenizer\XMLSerializer();
 $xml = $serializer->toXML($tokens);
 
 echo $xml;
+<<<<<<< HEAD
 ```
 
 The generated XML structure looks something like this:
 
 ```xml
+=======
+The generated XML structure looks something like this:
+
+>>>>>>> 4a94011bc424b3ff7825ba00a5077911d5cf9227
 <?xml version="1.0"?>
 <source xmlns="https://github.com/theseer/tokenizer">
  <line no="1">
@@ -46,4 +67,7 @@ The generated XML structure looks something like this:
   <token name="T_SEMICOLON">;</token>
  </line>
 </source>
+<<<<<<< HEAD
 ```
+=======
+>>>>>>> 4a94011bc424b3ff7825ba00a5077911d5cf9227

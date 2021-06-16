@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 tests\functional\FiveDressCest.php:FindFiveDressesInSearchResults
+=======
+tests\acceptance\WishListCest.php:checkMyWishlistProductsQuantity
+>>>>>>> 4a94011bc424b3ff7825ba00a5077911d5cf9227
