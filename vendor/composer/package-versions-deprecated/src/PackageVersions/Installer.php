@@ -268,7 +268,6 @@ PHP;
         yield $rootPackage->getName() => $rootPackage->getPrettyVersion() . '@' . $rootPackage->getSourceReference();
     }
 }
-=======
 <?php
 
 declare(strict_types=1);
