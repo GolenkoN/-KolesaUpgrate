@@ -8,7 +8,6 @@
 actor: FunctionalTester
 modules:
     enabled:
-<<<<<<< HEAD
         - MongoDb:
             dsn: 'mongodb://46.101.235.30/upgradeApp'
             populate: false
@@ -28,9 +27,4 @@ modules:
             headers:
                 Content-Type: application/json
 
-=======
-        # add a framework module here
-        - \Helper\Functional
-        - Asserts
->>>>>>> 4a94011bc424b3ff7825ba00a5077911d5cf9227
-    step_decorators: ~        
+    step_decorators: ~  
