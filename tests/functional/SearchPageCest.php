@@ -14,6 +14,6 @@ class SearchPageCest
         $I->fillField('#search_query_top', 'Printed dress');     
         $I->seeElement('#searchbox > button');
         $I->click('#searchbox > button');
-        $I->seeNumberOfElements('product-containe', 5);
+        $I->seeNumberOfElements('.product-container', 5);
     }
 }
