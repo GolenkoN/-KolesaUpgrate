@@ -14,9 +14,10 @@ jobs:
       - name: Install Faker
         run: composer require fzaninotto/faker
       - name: Run chromedriver
-        run: nohup $CHROMEWEBDRIVER/chromedriver --url-base=/wd/hub /dev/null 2>&1 &
- #     - name: Run build
-  #      run: php vendor/bin/codecept build
+        run: |
+          export DISPLAY=:99
+          chromedriver --headless --no-sandbox --disable-dev-shm-usage --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
       - name: Run tests
         run: php vendor/bin/codecept run --steps -vvv
       - name: JUnit Report Action
